@@ -15,15 +15,16 @@ if __name__ == "__main__":
     except redis.exceptions.ResponseError as error:
         print(error, "- Skipping creation of index")
 
-    query_vector = np.random.random((1, 500)).astype(np.float32).tobytes()
-    random_ids = [random.randint(1, 50000) for _ in range(250)]
+    candidate_list = [random.randint(1, 50_000) for _ in range(250)]
+    article_id = random.randint(1, 50_000)
+    query_vector = client.hget(f"article:{article_id}", "vector")
 
     query, params = create_nn_query(
         top_k=5,
         vector_field_name="vector",
         query_vector=query_vector,
         return_fields=["title", "subtitle", "id"],
-        filter=create_filter_in_string("id", random_ids),
+        filter=create_filter_in_string("id", candidate_list),
     )
 
     search_index = client.ft("article_index")
