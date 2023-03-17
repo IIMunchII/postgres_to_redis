@@ -27,7 +27,7 @@ def create_knn_query(top_k, vector_field_name, filter="*") -> Query:
 
 
 def create_filter_in_string(fieldname: str, value_list: list[int]) -> Filter:
-    return f"(@{fieldname}:({__create_pipe_separated_string(value_list)}))"
+    return f"@{fieldname}:({__create_pipe_separated_string(value_list)})"
 
 
 def __create_pipe_separated_string(int_list):

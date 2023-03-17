@@ -30,6 +30,6 @@ if __name__ == "__main__":
     except psycopg2.errors.DuplicateObject as error:
         print(error, "Skipping creation")
 
-    cursor.start_replication("slot1", decode=True)
+    cursor.start_replication("slot1", decode=True, start_lsn="0/0")
 
     cursor.consume_stream(consumer)

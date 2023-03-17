@@ -1,5 +1,4 @@
-from redis.commands.search.field import VectorField
-from redis.commands.search.field import TextField
+from redis.commands.search.field import VectorField, TextField
 from redis.commands.search import Search
 
 
@@ -51,6 +50,7 @@ def create_index(
     search_index.create_index(
         [
             vector_field,
+            TextField("id"),
             TextField("title"),
             TextField("subtitle"),
             TextField("body"),
