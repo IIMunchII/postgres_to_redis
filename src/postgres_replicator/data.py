@@ -46,14 +46,16 @@ class ReplicationData:
 
     def to_redis(self):
         result_dictionary = self.to_dict()
-        for key, value in result_dictionary.items():
-            if isinstance(value, np.ndarray):
-                result_dictionary.update({key: value.astype(np.float32).tobytes()})
-            if isinstance(value, list):
-                result_dictionary.update(
-                    {key: np.array(value).astype(np.float32).tobytes()}
-                )
-        return result_dictionary
+        return arrays_to_bytes(result_dictionary)
+
+
+def arrays_to_bytes(dictionary: dict):
+    for key, value in dictionary.items():
+        if isinstance(value, np.ndarray):
+            dictionary.update({key: value.astype(np.float32).tobytes()})
+        if isinstance(value, list):
+            dictionary.update({key: np.array(value).astype(np.float32).tobytes()})
+    return dictionary
 
 
 if __name__ == "__main__":

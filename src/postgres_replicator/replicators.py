@@ -1,29 +1,6 @@
-import itertools
 import redis
 from postgres_replicator.data import ReplicationData, OperationEnum
 from typing import Protocol
-
-
-def chunk(it, size):
-    it = iter(it)
-    while True:
-        p = dict(itertools.islice(it, size))
-        if not p:
-            break
-        yield p
-
-
-def load_chuncked_data(
-    client: redis.Redis,
-    stream_data: list[ReplicationData],
-    chunk_size: int = 10000,
-):
-    for batch in chunk(stream_data.items(), chunk_size):
-        pipeline = client.pipeline(transaction=False)
-        for data in batch:
-            hashkey = data.key
-            pipeline.hset(hashkey, mapping=data.to_redis())
-        pipeline.execute()
 
 
 class Replicator(Protocol):

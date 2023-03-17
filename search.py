@@ -16,7 +16,7 @@ if __name__ == "__main__":
         print(error, "- Skipping creation of index")
 
     query_vector = np.random.random((1, 500)).astype(np.float32).tobytes()
-    random_ids = [random.randint(10000, 40000) for _ in range(250)]
+    random_ids = [random.randint(1, 50000) for _ in range(250)]
 
     query, params = create_nn_query(
         top_k=5,
