@@ -35,6 +35,8 @@ def test_decoding_parser():
     parser = TestDecodingParser()
     result = parser.parse(replication_message)
 
-    assert result.fields == expected_result.fields
-    assert result.operation == expected_result.operation
-    assert result.table == expected_result.table
+    assert result.fields == expected_result.fields, "Field values are not matching"
+    assert (
+        result.operation == expected_result.operation
+    ), "Operation value is not matching"
+    assert result.table == expected_result.table, "Table valie is not matching"

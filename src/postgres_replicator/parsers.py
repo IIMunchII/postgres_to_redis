@@ -20,7 +20,7 @@ class TestDecodingParser:
         return match.group(1), match.group(2), match.group(3)
 
     def extract_field_matches(self, fields_str):
-        field_pattern = r"(\w+)\[(.+?)\]:(.*?)(?:\s|$)"
+        field_pattern = r"(\w+)\[(.+?)\]:((?:'(?:\\'|[^'])*'|\S)+)(?:\s|$)"
         return re.findall(field_pattern, fields_str)
 
     def parse_field(self, field_type, field_value):
