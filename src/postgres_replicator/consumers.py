@@ -1,4 +1,3 @@
-from parsers import TestDecodingParser
 from psycopg2.extras import ReplicationMessage
 from postgres_replicator.parsers import ReplicationParser
 from postgres_replicator.replicators import Replicator
