@@ -17,7 +17,5 @@ class LogicalStreamConsumer:
         if payload.startswith("BEGIN") or payload.startswith("COMMIT"):
             print(payload)
         else:
-            print(payload)
             replication_data = self.parser.parse(payload)
-            print(replication_data)
             self.replicator.replicate(replication_data)
