@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "postgres_replicator"
+version = "0.1.0"
+description = "A package for replicating PostgreSQL data"
+authors = [
+    {name = "Jonas Høgh Kyhse-Andersen", email = "jonash@email.fo"}
+]
+readme = "README.md"
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38', 'py39']
+exclude = '''
+(
+  \.git
+  | \.venv
+  | __pycache__
+  | build
+  | dist
+)
+'''
+
+[tool.pytest]
+addopts = "--strict-markers"
+markers = [
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
