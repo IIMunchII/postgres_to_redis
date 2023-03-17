@@ -1,4 +1,3 @@
-import redis
 from redis.commands.search.field import VectorField
 from redis.commands.search.field import TextField
 from redis.commands.search import Search
@@ -57,13 +56,3 @@ def create_index(
             TextField("body"),
         ]
     )
-
-
-if __name__ == "__main__":
-    client = redis.Redis()
-    search_index = client.ft("article_index")
-    vector_field = get_flat_index_field("vector", 10_000)
-    try:
-        create_index(search_index, vector_field)
-    except redis.exceptions.ResponseError as error:
-        print(error, "- Skipping creation of index")

@@ -48,6 +48,6 @@ if __name__ == "__main__":
         port="5432",
     ) as conn:
         create_table(conn)
-        vector, title, body, subtitle = generate_dummy_data(faker)
-
-        insert_article(conn, vector, title, body, subtitle)
+        for _ in range(10_000):
+            vector, title, body, subtitle = generate_dummy_data(faker)
+            insert_article(conn, vector, title, body, subtitle)

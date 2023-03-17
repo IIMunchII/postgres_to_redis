@@ -5,8 +5,9 @@ from postgres_replicator.consumers import LogicalStreamConsumer
 from postgres_replicator.replicators import RedisReplicator
 import redis
 
-if __name__ == "__main__":
-    conn = psycopg2.connect(
+
+def create_connection() -> LogicalReplicationConnection:
+    return psycopg2.connect(
         dbname="postgres",
         user="postgres",
         password="postgres",
@@ -14,17 +15,21 @@ if __name__ == "__main__":
         port="5432",
         connection_factory=LogicalReplicationConnection,
     )
+
+
+if __name__ == "__main__":
     redis_client = redis.Redis()
     parser = TestDecodingParser()
     redis_replicator = RedisReplicator(redis_client)
     consumer = LogicalStreamConsumer(parser, redis_replicator)
 
-    cur = conn.cursor()
+    conn = create_connection()
+    cursor = conn.cursor()
     try:
-        cur.create_replication_slot("slot1", REPLICATION_LOGICAL, "test_decoding")
+        cursor.create_replication_slot("slot1", REPLICATION_LOGICAL, "test_decoding")
     except psycopg2.errors.DuplicateObject as error:
         print(error, "Skipping creation")
 
-    cur.start_replication("slot1", decode=True)
+    cursor.start_replication("slot1", decode=True)
 
-    cur.consume_stream(consumer)
+    cursor.consume_stream(consumer)
