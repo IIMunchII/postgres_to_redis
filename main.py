@@ -1,8 +1,8 @@
 import psycopg2
 from psycopg2.extras import LogicalReplicationConnection, REPLICATION_LOGICAL
-from parsers import TestDecodingParser
-from consumers import LogicalStreamConsumer
-from replicators import RedisReplicator
+from postgres_replicator.parsers import TestDecodingParser
+from postgres_replicator.consumers import LogicalStreamConsumer
+from postgres_replicator.replicators import RedisReplicator
 import redis
 
 if __name__ == "__main__":

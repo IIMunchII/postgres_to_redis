@@ -1,6 +1,6 @@
 import itertools
 import redis
-from data import ReplicationData, OperationEnum
+from postgres_replicator.data import ReplicationData, OperationEnum
 from typing import Protocol
 
 

@@ -1,5 +1,5 @@
-from parsers import TestDecodingParser
-from data import ReplicationData
+from postgres_replicator.parsers import TestDecodingParser
+from postgres_replicator.data import ReplicationData
 
 expected_result = ReplicationData(
     table="article",

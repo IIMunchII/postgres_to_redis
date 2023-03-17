@@ -1,6 +1,6 @@
 import re
 import json
-from data import ReplicationData
+from postgres_replicator.data import ReplicationData
 from typing import Protocol
 
 
