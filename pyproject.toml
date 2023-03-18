@@ -10,6 +10,11 @@ authors = [
     {name = "Jonas Høgh Kyhse-Andersen", email = "jonash@email.fo"}
 ]
 readme = "README.md"
+dependencies = [
+    "psycopg2-binary",
+    "redis",
+    "more-itertools",
+]
 
 [tool.black]
 line-length = 88
