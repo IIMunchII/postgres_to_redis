@@ -60,10 +60,10 @@ classDiagram
     class ReplicationData {
         -table: str
         -action: str
-        -data: Dict[str, Any]
+        -data: dict
     }
-    LogicalStreamConsumer -> ReplicationParser
-    LogicalStreamConsumer -> Replicator
+    LogicalStreamConsumer --> ReplicationParser
+    LogicalStreamConsumer --> Replicator
     LogicalStreamConsumer --> ReplicationMessage
     ReplicationMessage --> Cursor
     ReplicationParser --> ReplicationData
