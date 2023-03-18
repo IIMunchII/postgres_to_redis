@@ -32,3 +32,40 @@ It will first get the vector from one id (similarity article) then generate 250 
 ```bash
 python search_example.py
 ```
+
+# Mermaid class diagram
+```mermaid
+classDiagram
+    class LogicalStreamConsumer {
+        -parser: ReplicationParser
+        -replicator: Replicator
+        +__init__(parser: ReplicationParser, replicator: Replicator)
+        +__call__(message: ReplicationMessage): void
+        +process_message(payload: str): void
+    }
+    class ReplicationParser {
+        +parse(payload: str): ReplicationData
+    }
+    class Replicator {
+        +replicate(replication_data: ReplicationData): None
+    }
+    class ReplicationMessage {
+        -payload: str
+        -cursor: Cursor
+        -data_start: int
+    }
+    class Cursor {
+        +send_feedback(flush_lsn: int): None
+    }
+    class ReplicationData {
+        -table: str
+        -action: str
+        -data: Dict[str, Any]
+    }
+    LogicalStreamConsumer -> ReplicationParser
+    LogicalStreamConsumer -> Replicator
+    LogicalStreamConsumer --> ReplicationMessage
+    ReplicationMessage --> Cursor
+    ReplicationParser --> ReplicationData
+    Replicator --> ReplicationData
+```
